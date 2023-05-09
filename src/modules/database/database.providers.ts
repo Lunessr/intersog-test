@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import { DATA_SOURCE } from '../../constants/providers';
+import { Cards } from '../../entities/cards.entity';
 
 export const databaseProviders = [
   {
@@ -10,9 +11,9 @@ export const databaseProviders = [
         host: 'localhost',
         port: 3306,
         username: 'root',
-        password: 'password',
+        password: '123456',
         database: 'intersog',
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        entities: [Cards],
         migrations: ['dist/modules/database/migrations/**{.ts,.js}'],
         synchronize: false,
         logging: true,

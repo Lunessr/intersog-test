@@ -14,9 +14,7 @@ export class CardsRepository {
   ) {}
 
   public async getCardBy(conditions): Promise<Cards> {
-    const card = await this.cardsRepository.findOne(conditions);
-    console.log(card);
-    return card;
+    return this.cardsRepository.findOneBy(conditions);
   }
 
   public getAllCards(): Promise<Cards[]> {
