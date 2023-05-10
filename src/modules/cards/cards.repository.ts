@@ -1,10 +1,14 @@
-import { Inject, Injectable } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { CARDS_REPOSITORY } from '../../constants/providers';
 import { Cards } from '../../entities/cards.entity';
-import { CardState } from '../../enums/cardState';
+import { CardState } from '../../enums/cardState.enum';
 import { CreateCardDto } from './dto/createCard.dto';
+import { UpdateCardDto } from './dto/updateCard.dto';
 
 @Injectable()
 export class CardsRepository {
@@ -13,8 +17,16 @@ export class CardsRepository {
     private cardsRepository: Repository<Cards>,
   ) {}
 
-  public async getCardBy(conditions): Promise<Cards> {
-    return this.cardsRepository.findOneBy(conditions);
+  public async getCardBy(condition: {
+    id?: number;
+    ownerId?: number;
+  }): Promise<Cards> {
+    if (!condition.id && !condition.ownerId) {
+      console.log('Description error message for the logger'); // Need to use logger instead console.log
+      throw new InternalServerErrorException();
+    }
+
+    return this.cardsRepository.findOneBy(condition);
   }
 
   public getAllCards(): Promise<Cards[]> {
@@ -22,15 +34,14 @@ export class CardsRepository {
   }
 
   public createCard(createCardDto: CreateCardDto): Promise<Cards> {
-    const { name, ownerId, cardType } = createCardDto;
-    return this.cardsRepository.create({ name, ownerId, cardType }).save();
+    return this.cardsRepository.create(createCardDto).save();
   }
 
   public async updateCard(
     id: Cards['id'],
-    conditions: QueryDeepPartialEntity<Cards>,
+    updateCardDto: UpdateCardDto,
   ): Promise<void> {
-    await this.cardsRepository.update(id, conditions);
+    await this.cardsRepository.update(id, updateCardDto);
   }
 
   public async deleteUser(id: Cards['id']): Promise<void> {

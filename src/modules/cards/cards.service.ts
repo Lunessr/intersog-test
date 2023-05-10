@@ -3,7 +3,7 @@ import { Cards } from '../../entities/cards.entity';
 import { CardsRepository } from './cards.repository';
 import { CreateCardDto } from './dto/createCard.dto';
 import { UpdateCardDto } from './dto/updateCard.dto';
-import { CARD_EXIST, NO_CARD } from '../../constants/errors';
+import { CARD_EXIST } from '../../constants/errors';
 
 @Injectable()
 export class CardsService {
@@ -20,7 +20,7 @@ export class CardsService {
   public async createCard(createCardDto: CreateCardDto): Promise<Cards> {
     const { ownerId } = createCardDto;
 
-    await this.checkExistingCard(ownerId, CARD_EXIST);
+    await this.checkExistingCard(ownerId);
 
     return this.cardsRepository.createCard(createCardDto);
   }
@@ -28,11 +28,6 @@ export class CardsService {
     id: Cards['id'],
     updateCardDto: UpdateCardDto,
   ): Promise<Cards> {
-    const card = await this.getCardById(id);
-    if (!card) {
-      throw new BadRequestException(NO_CARD);
-    }
-
     await this.cardsRepository.updateCard(id, updateCardDto);
 
     return this.getCardById(id);
@@ -42,14 +37,11 @@ export class CardsService {
     await this.cardsRepository.deleteUser(id);
   }
 
-  private async checkExistingCard(
-    ownerId: Cards['ownerId'],
-    errorMessage: string,
-  ): Promise<void> {
-    const existUser = await this.cardsRepository.getCardBy(ownerId);
+  private async checkExistingCard(ownerId: Cards['ownerId']): Promise<void> {
+    const existCard = await this.cardsRepository.getCardBy({ ownerId });
 
-    if (existUser === null) {
-      throw new BadRequestException(errorMessage);
+    if (existCard !== null) {
+      throw new BadRequestException(CARD_EXIST);
     }
   }
 }

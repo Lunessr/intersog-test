@@ -1,16 +1,23 @@
-import { IsString, IsNumber, IsEnum, IsOptional } from 'class-validator';
-import { CardType } from '../../../enums/cardType';
+import {
+  IsString,
+  IsNumber,
+  IsEnum,
+  MaxLength,
+  IsNotEmpty,
+} from 'class-validator';
+import { CardType } from '../../../enums/cardType.enum';
 
 export class UpdateCardDto {
-  @IsOptional()
   @IsString()
+  @IsNotEmpty()
+  @MaxLength(32)
   name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsNumber()
   ownerId: number;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsEnum(CardType)
   cardType: CardType;
 }

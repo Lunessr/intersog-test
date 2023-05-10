@@ -1,7 +1,3 @@
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
@@ -11,6 +7,7 @@ $ npm install
 ## Migrations
 
 ```bash
+# Create a .env file using .env.sample as a reference/template
 $ npm run migrations:run
 ```
 

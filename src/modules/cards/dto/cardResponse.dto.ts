@@ -1,4 +1,4 @@
-import { CardType } from '../../../enums/cardType';
+import { CardType } from '../../../enums/cardType.enum';
 
 export class CardResponseDto {
   id: number;

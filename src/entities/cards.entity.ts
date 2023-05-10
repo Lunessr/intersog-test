@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { CardState } from '../enums/cardState';
-import { CardType } from '../enums/cardType';
+import { CardState } from '../enums/cardState.enum';
+import { CardType } from '../enums/cardType.enum';
 
 @Entity({ name: 'cards' })
 export class Cards extends BaseEntity {
