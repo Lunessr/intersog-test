@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
 import { CardsController } from './cards.controller';
-import { cardsProviders } from './cards.providers';
 import { CardsRepository } from './cards.repository';
 import { CardsService } from './cards.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cards } from '../../entities/cards.entity';
 
 @Module({
   controllers: [CardsController],
-  providers: [...cardsProviders, CardsService, CardsRepository],
-  imports: [DatabaseModule],
+  providers: [CardsService, CardsRepository],
+  imports: [TypeOrmModule.forFeature([Cards])],
   exports: [CardsService],
 })
 export class CardsModule {}
