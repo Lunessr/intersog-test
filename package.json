@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:generate": "ts-node ./src/modules/database/migrationScripts.ts generate",
-    "migrations:create": "ts-node ./src/modules/database/migrationScripts.ts create",
+    "migration:create": "ts-node ./src/modules/database/migrationScripts.ts create",
     "migrations:run": "ts-node ./src/modules/database/migrationScripts.ts run",
     "migrations:revert": "ts-node ./src/modules/database/migrationScripts.ts revert"
   },

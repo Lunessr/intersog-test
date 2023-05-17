@@ -1,14 +1,25 @@
 ## Installation
 
 ```bash
+- Create a .env file using .env.sample as a reference/template
+
 $ npm install
 ```
 
 ## Migrations
 
 ```bash
-# Create a .env file using .env.sample as a reference/template
+# genearate
+$ npm run migration:generate customName
+
+# create
+$ npm run migration:create customName
+
+# run
 $ npm run migrations:run
+
+# revert
+$ npm run migrations:revert
 ```
 
 ## Running the app
