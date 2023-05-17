@@ -1,19 +1,15 @@
-import {
-  Inject,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { CARDS_REPOSITORY } from '../../constants/providers';
 import { Cards } from '../../entities/cards.entity';
 import { CardState } from '../../enums/cardState.enum';
 import { CreateCardDto } from './dto/createCard.dto';
 import { UpdateCardDto } from './dto/updateCard.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CardsRepository {
   constructor(
-    @Inject(CARDS_REPOSITORY)
+    @InjectRepository(Cards)
     private cardsRepository: Repository<Cards>,
   ) {}
 

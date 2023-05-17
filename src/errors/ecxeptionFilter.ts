@@ -13,7 +13,6 @@ export class ErrorExceptionsFilter implements ExceptionFilter {
 
   catch(exception: any, host: ArgumentsHost): void {
     const { httpAdapter } = this.httpAdapterHost;
-    console.log(exception.response.error);
 
     const ctx = host.switchToHttp();
 
